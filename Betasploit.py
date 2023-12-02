@@ -48,23 +48,73 @@ dorklist = ["category", "id", "name", "Id", 'query', 'cat', 'page', 'view', 'dat
 dorkpath = ["/dork/id", "/dork/category", '/dork/query', '/dork/name', '/dork/cat', '/dork/page', '/dork/view', '/dork/data', '/dork/page_code', '/dork/mode', '/dork/code', '/dork/typeboard', '/dork/prodID', '/dork/no', '/dork/ps_db', '/dork/uid', '/dork/act', '/dork/bd', '/dork/board', '/dork/LAN', '/dork/show', '/dork/item_id', '/dork/item_ID', '/dork/Item_id', '/dork/Item_ID']
 
 
-class Pool(object):
-
-    def __init__(self, url: str = None):
-
-        self.url = str(url)
-
-    def get_status(self):
-        return req.get(self.url).status_code
-
-    def get_json(self):
-        return req.get(self.url).json()
-
-    def post_status(self):
-        return req.post(self.url).status_code
-
-    def post_json(self):
-        return req.post(self.url).json()
+class HELP:
+    
+    def usage(numberDict):
+        dictX = {
+            'commands' : [
+                {
+                    '1' : 'help',
+                    'info' : 'show this message',
+                    'usage' : 'type " help "'
+                },
+                {
+                    '1' : 'plus',
+                    'info' : 'plus two number together',
+                    'usage' : 'plus x:y => x , y are 1 2 3 ...'
+                },
+                {
+                    '1' : 'search',
+                    'info' : 'search a Query on Google',
+                    'usage' : 'search Python Book (pdf) For H4ckers'
+                },
+                {
+                    '1' : 'dork',
+                    'info' : 'find websites for sql injection',
+                    'usage' : {
+                        'arg1' : 'local > local=true => choose something from " dorklist " variable and searching for that',
+                        'arg2' : 'dorkPath > dorkPath=/dork/{} => search a special Dork by user, you can see dork paths options by typing " pathdork "'
+                    }
+                },
+                {
+                    '1' : 'open',
+                    'info' : 'open an link by default system Browser => actually work at Windows and Linux Desktop',
+                    'usage' : 'open #<link> => open https://www.example.com'
+                },
+                {
+                    '1' : 'read',
+                    'info' : 'read an file or pathfile',
+                    'usage' : 'read #<file or path> => " read numbers.txt " or " read /home/usr/bin/nmap " or " read C:\\User\\SYSNAME\\Desktop\\Something.txt "'
+                },
+                {
+                    '1' : 'sys',
+                    'info' : 'You can use system commands by sys',
+                    'usage' : 'sys ... #<Commands> => sys ls && echo Hi'
+                },
+                {
+                    '1' : 'osinfo',
+                    'info' : 'Give the OS information',
+                    'usage' : {
+                        'arg1' : 'clear > clear=true => Print Better'
+                    }
+                },
+                {
+                    '1' : 'alexa',
+                    'info' : 'Use Request Polling > first try to get json data, if cannot try to get status code else continue the program',
+                    'usage' : {
+                        'arg1' : 'url > url=https://www.example.com => set url',
+                        'arg2' : 'method > method=<GET - POST> => set method, if you dont call the method arg, its GET by default'
+                    }
+                },
+                {
+                    '1' : 'exit',
+                    'info' : 'finish program',
+                    'usage' : 'type " exit "'
+                }
+            ]
+        }
+        
+        return dictX['commands'][numberDict]
 
 class GNU(object):
 
@@ -131,7 +181,6 @@ class SearchBox(object):
             pass
 
 
-
 class Console(object):
 
     def _():
@@ -140,7 +189,16 @@ class Console(object):
             text = user.split()
 
             if user == "help":
-                print("Will be Soon ! ...")
+                numsx = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                
+                for n in numsx:
+                    main = HELP.usage(n)
+                    com = main.get('1')
+                    info = main.get('info')
+                    use = main.get('usage')
+                    print(Box('''Command: {}
+Info: {}
+Usage: {}'''.format(com, info, use)).postive)
 
             if user.startswith("plus"):
                 nums = [int(num) for num in user.replace("plus ", "").split(":")]
@@ -200,11 +258,6 @@ class Console(object):
                     print()
                     print(GNU.allInfo())
                     print()
-
-            if user.startswith("gpt"):
-                qu = user.replace("gpt ", "")
-
-                print("Will Be Soon")
 
             if "open" in text:
                 url = text[text.index("open")+1]
