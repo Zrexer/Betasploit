@@ -44,8 +44,8 @@ print(f"""
 {f.RESET}""")
 
 
-dorklist = ["category", "id", "name", "Id"]
-dorkpath = ["/dork/id", "/dork/category"]
+dorklist = ["category", "id", "name", "Id", 'query', 'cat', 'page', 'view', 'data', 'page_code', 'mode', 'code', 'typeboard', 'prodID', 'no', 'ps_db', 'uid', 'act', 'bd', 'board', 'lan', 'show', 'item_ID', '']
+dorkpath = ["/dork/id", "/dork/category", '/dork/query', '/dork/name', '/dork/cat', '/dork/page', '/dork/view', '/dork/data', '/dork/page_code', '/dork/mode', '/dork/code', '/dork/typeboard', '/dork/prodID', '/dork/no', '/dork/ps_db', '/dork/uid', '/dork/act', '/dork/bd', '/dork/board', '/dork/LAN', '/dork/show', '/dork/item_id', '/dork/item_ID', '/dork/Item_id', '/dork/Item_ID']
 
 
 class Pool(object):
@@ -150,7 +150,11 @@ class Console(object):
             if user.startswith("search"):
                 query = user.replace("search ", "")
 
-                SearchBox(query).start()
+                try:
+                    SearchBox(query).start()
+                except KeyboardInterrupt:
+                    print(Box('Close SearchBox Class').action)
+                    pass
 
             if user.startswith("dork"):
                 local = text[text.index("dork")+1].replace("local=", "")
@@ -161,12 +165,18 @@ class Console(object):
                 else:
                     if len(text) == 2:
                         dork = text[text.index("dork")+1].replace("dorkPath=", "")
-                        if dork == "/dork/id":
-                            SearchBox("inurl:*.php?id=").start()
-
-                        elif dork == "/dork/category":
-                            SearchBox("inurl:*.php?category=").start()
-
+                        if dork.startswith('/dork/'):
+                            _dork = dork.replace('/dork/', '')
+                            if not f"/dork/{_dork}" in dorkpath:
+                                print(Box("Invalid Path`s ID Dork").negative)
+                                
+                            else:
+                                try:
+                                    SearchBox(f'inurl:*.php?{_dork}=').start()
+                                except KeyboardInterrupt:
+                                    print(Box('Close SearchBox Class').action)
+                                    pass
+                            
                         else:
                             print(Box("Invalid Path`s Dork").negative)
 
