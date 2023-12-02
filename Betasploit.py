@@ -12,8 +12,6 @@ os = imp("os")
 
 sys = imp("sys")
 
-fig = imp("pyfiglet")
-
 web = imp("webbrowser")
 
 socket = imp("socket")
@@ -29,7 +27,21 @@ f = cl.Fore
 
 os.system("")
 
-print(fig.figlet_format("BetaSploit", "small"))
+bs = "}"
+s = "{"
+
+print(f"""
+
+                ___      _        ___      _     _ _
+                | _ ) ___| |_ __ _/ __|_ __| |___(_) |_
+                | _ \/ -_)  _/ _` \__ \ '_ \ / _ \ |  _|
+                |___/\___|\__\__,_|___/ .__/_\___/_|\__|
+                                        |_|
+                    
+        {f.YELLOW}{bs}==============[      {f.CYAN}Host1let{f.YELLOW}        ]=============={s}
+        {f.YELLOW}{bs}==============[    {f.CYAN}Version 1.0.0{f.YELLOW}     ]=============={s}
+        {f.YELLOW}{bs}==============[{f.CYAN}Powered By Python 3.11{f.YELLOW}]=============={s}
+{f.RESET}""")
 
 
 dorklist = ["category", "id", "name", "Id"]
